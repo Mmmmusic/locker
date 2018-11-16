@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<style>
+
+	.info{
+		width: 320px;
+		height: 520px;
+		border: 1px #333777 solid;
+		padding: 10px;
+		position: relative;
+	}
+	.box{
+		width: 300px;
+		height: 460px;
+		background-color: #333438;
+		padding: 10px;
+		color: #fff;
+		font-size: 14px;
+		overflow: auto;
+	}
+	.desc{
+		width: 300px;
+		height: 50px;
+		position: absolute;
+		top: 0;
+		padding: 10px;
+		color: #fff;
+		text-align: center;
+	}
+	input{
+		margin-left: 72px;
+		position: absolute;
+		bottom: 9px;
+        padding: 2px;
+	}
+	.echo{
+		text-align: right;
+	}
+
+</style>
+</head>
+<body>
+	
+	<!-- 接口地址：http://route.showapi.com/60-27?showapi_appid=70621&showapi_sign=d6df70b2a438407288a4dc05a63d001b&info='+info -->
+	<!-- 请求方式：post -->
+
+	<div class="info">
+
+		<input type="text" placeholder="输入信息...">
+		<div class="box"></div>
+		<hr>
+		<div class="desc"></div>
+
+	</div>
+
+
+	<script>
+		
+		var input = document.getElementsByTagName('input')[0];
+		var box = document.querySelector('.box');
+		var desc = document.querySelector('.desc');
+		var xhr = new XMLHttpRequest();
+
+		input.onkeyup = function(e){
+			// 按钮兼容性处理
+			var e = e || window.event;
+			var keyCode = e.keyCode || e.which;
+			// info接收输入框传入的值
+			var info = this.value;
+			if((keyCode === 13 || keyCode === 108) && info !== ''){
+				// 图灵输入提示
+				desc.innerHTML = '正在输入...';
+				// 把info输入的值打印到页面上
+				box.innerHTML += '<p>我：' + info + '</p>';
+				// 清空输入框里的输入信息
+				input.value = '';
+
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState === 4 && xhr.status === 200){
+					// 接口信息转成JSON对象
+					var data = JSON.parse(xhr.responseText).showapi_res_body;
+					// 事件判定，如果ret_code的值 = 0，信息正确
+					if(data.ret_code === 0){
+						console.log(data);
+						box.innerHTML += '<p class="echo">' + data.text + '：kasia</p>';
+						// 清空输入提示信息
+						desc.innerHTML = '';
+						// 调用滚轮判定方法
+						getDistance();
+					}else{
+						desc.innerHTML = '错误信息：' + data.error_info;
+					}
+				}
+			}
+
+			// 输入框滚轮判定
+			function getDistance(){
+				// 获取box盒子的高度
+				var scrollHeight = box.scrollHeight;
+				// 获取box距离上方的高度
+				var height = box.offsetHeight;
+				box.scrollTop = scrollHeight - height;
+			}
+
+			xhr.open('post','http://route.showapi.com/60-27');
+			xhr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+			xhr.send('showapi_appid=70646&showapi_sign=47c091c0275441ee99cfd5951e8682d7&info=' + info,true);
+
+			}
+		}
+
+	</script>
+
+</body>
+</html>

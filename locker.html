@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="jQQ/jquery.1.11.3.min.js"></script>
+<style>
+  
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  li{
+    list-style: none;
+  }
+  .list li{
+    height: 30px;
+    line-height: 30px;
+    width: 300px;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+    margin-left: 4px;
+  }
+  .list li:hover{
+    background-color: #e5e5e5;
+  }
+  #tab{
+    margin: 4px;
+    max-width: 175px;
+    padding: 10px;
+    border: 1px #e0e0e0 solid;
+  }
+  #box{
+    width: 100px;
+    height: 100px;
+    background-color: #333439;
+    cursor: pointer;
+  }
+
+</style>
+</head>
+<body>
+
+  <div id="box"></div>
+
+  <ul class="list">
+    <li class="hit">1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li class="hit">5</li>
+  </ul>
+
+  <a href="http://www.baidu.com" id="blank" target="_blank"><img src="/img/logo.png" alt="webfoss"></a><br>
+
+  <div id="tab"></div>
+
+  <script>
+
+    // jquery解绑事件
+    $("#box").on("click",function (){
+      $(this).unbind();
+    })
+
+    // 计算参数之和 
+    // arguments
+    ;(function(){
+      function add(){
+        var x = 0;
+        for(var i = 0;i < arguments.length;i++){
+          x += arguments[i];
+        }
+        return x;
+      }
+      var a = add(1,2,3,4);
+      console.log(a);           // 10
+    })();
+
+    // 去重
+    var arr = [1,1,1,1,12,1,4,3,2,4,12];
+    var res = [];
+    for(var i = 0;i < arr.length;i++){
+      // 如果新数组不存在此条数据，就把该条数据存进去
+      if(res.indexOf(arr[i]) == -1){
+        res.push(arr[i]);
+      }
+    }
+
+    console.log(res);
+
+    // 倒排
+    console.log(arr.reverse());
+
+    // 正序
+    var a = function (a,b){
+      return a - b;
+    }
+    console.log(arr.sort(a));
+
+    // 倒序
+    var a = function (a,b){
+      return b - a;
+    }
+    console.log(arr.sort(a));
+
+    // 输出什么
+    var z = 1,y = z = typeof y;
+    console.log(y);             // undefined
+
+    // 输出什么
+    arr = [];
+    console.log(arr);           // []
+    console.log(arr.splice(0)); // []
+    console.log(arr);           // []
+
+    // 作用域
+    var sal = "1000$";
+    ;(function(){
+      console.log(sal);         // undefined
+      var sal = "5000$"; 
+      console.log(sal)          // 5000$
+    })();
+
+    // 输出什么
+    var tre = ["1231","asd","awqe","vssa","eqs"];
+    delete tre[3];
+    console.log(tre.length,tre); // 5 只清空，但占位
+
+    // es6 数组去重 set() 类数组，成员唯一
+    var arr = [1,2,2,3,1,3,1,2,3,2,1,2];
+    // 先去重,然后展开,再放到一个空数组内
+    arr = [...new Set(arr)];
+    console.log(arr);            // [1,2,3]
+
+    // 数组合并
+    var arr = [1,2,2,3,1,3,1,2,3,2,1,2];
+    var s = [4,789,4,984,6];
+    var c = [];
+    console.log(c.concat(arr,s));
+
+    // jq判断有没有某个类名
+    $(".list").on("click","li",function(){
+      if($(this).hasClass("hit")){
+        $(this).html("hit");
+        console.log("ok");
+      }else{
+        console.log("no");
+      }
+      // console.log($(this).hasClass("hit"));
+    });
+
+    // 求大于0的数之和
+    var arr = [-1,1,-9,-4,5,4];
+    var sum = 0;
+    for(var i = 0;i < arr.length;i++){
+      if(arr[i]>0){
+        sum += arr[i];
+      }
+    }
+
+    console.log(sum,a);
+
+    // 跳页
+    // blank.onclick = function(){
+    //   window.location.href="http://www.baidu.com"
+    // }
+    
+    // get 和 post区别
+    // 
+    // 01 运行速度
+    //     get运行速度快
+    // 02 缓存
+    //     get存在缓存（提升速度，但有时不能及时获取最新数据），post不存在缓存
+    // 03 存储量
+    //     get有存储量限制，post没有，post请求可以向服务器发送大量数据
+    // 04 数据安全
+    //     get明文传送，会显示在http地址后面，post不会
+    // 05 传参方式
+    //     get是将传参拼接在url之后，?开头，之后的数据用&联接，post是放在send里，而且还需要设置请求头(xhr.setRequestHeader("content-type","application/x-www-form-urlencoded";))
+
+    // 原型链 // 每个变量都有原型链
+    var c;
+    console.log(c.__proto__);
+
+    // 闭包
+    // 
+    // 常见写法 1
+    function fun(){
+      var x = 10;
+      // 函数内部 return 一个函数
+      return function(){
+        x++;
+        console.log(x); 
+      }
+    }
+
+    var f = fun();
+    f();  // 11
+    f();  // 12
+    var f2 = fun();
+    f2(); // 11
+
+    // 原型对象
+    var obj = {};       // 普通对象 = new Object();
+    console.log(obj);
+
+    function obj(){};   // 函数对象
+    console.log(obj);
+
+    var arr = [1,2,3];  // new Array 其实还是通过构造函数生成，只不过是字面量的写法
+
+    console.log(arr);
+    console.log(arr.__proto__); // 指向构造函数的原型对象，然后就可以调用该构造函数的原型对象上的方法，例如arr.push(),arr.splice()
+
+    // 原型对象和原型链
+    // 自定义函数,在该函数上定义两个排序方法
+    function Obj(){
+
+    }
+
+    Obj.prototype = {
+      add:function(a,b){
+        return a + b;
+      },
+      reduce:function(a,b){
+        return a - b;
+      }
+    }
+
+    var a = new Obj();
+
+    console.log(a);
+    console.log(a.__proto__ == Obj.prototype);  // true
+
+    console.log(a.add(1,2));        // 3
+    console.log(a.reduce(3,2));     // 1
+
+    // 闭包
+    // function aa(){
+    //   var x = 10;
+    //   return function bb(){
+    //     setInterval(function(){
+    //       console.log(++x);
+    //     },1000)
+    //   }
+    // }
+
+    // var wq = aa();
+    // wq();
+
+    // 从当前字符串中截取 cd ，用两种方法
+    //  
+    var str = "abcdef";
+    var a = [];
+    // substr截取 含尾不含头 
+    a = str.substr(2,2);
+    console.log(a);             // cd
+    // slice截取  
+    b = str.slice(2,4);         // cd
+    console.log(b);
+
+    // 数组去重,并从小到大排序
+    var arr = [1,2,3,4,1,2,22];
+    var nArr = [];
+    for(var i = 0;i < arr.length;i++){
+      if(nArr.indexOf(arr[i]) == -1){
+        nArr.push(arr[i]);
+      }
+    }
+    // console.log(nArr);
+    var sortArr = function (a,b){
+      return a - b;
+    }
+    console.log(nArr.sort(sortArr)); // 输出的是去重并排序过的数组
+
+    // 在字符串类型的原型对象上拓展一个反转字符串的方法
+    // 
+    String.prototype.myRest = function(str){
+      var a = [];
+      for(var i = 0;i < str.length;i++){
+        a.unshift(str[i]);
+      }
+      return a.join('');
+    }
+
+    var str = "abc";
+    // 调用String原型对象上的myRest方法
+    console.log(str.myRest(str)); // cba
+
+    // 下面代码输出什么
+    for(var i = 0;i < 3;i++){
+      setTimeout(function(){
+        console.log(i);           // 输出3,进入循环就已经执行完毕
+      },1000);
+    }
+
+    // 一行写出求最大值的函数体
+    function maxNumber(a,b,c){
+      return a>b?a:(b>c?b:c);
+      // 三元表达式嵌套
+      // a = 条件1 ? 值1 : (条件2 ? 值2 : (条件3 ? 值3 : (条件4 ? 值4 : 值5)));
+    }
+
+    // 下面代码打印的 a 的值分别是什么
+    var a = 10;                   // 存在于window对象下
+    function test(){
+      a = 100;
+      // var a;
+      // a = 100;
+      console.log(a);             // 100
+      console.log(this.a);        // 10 指向window
+      var a;
+      console.log(a);             // 100
+    }
+    test();
+
+    // 输出下列代码执行结果（变量提升）
+    function outPut(res){
+      document.write(res + "<br>");
+    }
+
+    var q = "lashou";
+    var b = q;
+    outPut(b);                    // lashou
+    q = "拉手";
+    outPut(q);                    // 拉手
+    outPut(b);                    // lashou
+    var a_arr = [1,2,3];
+    var b_arr = a_arr;
+    outPut(b_arr);                // 1,2,3
+    a_arr[3] = 4;
+    outPut(a_arr);                // 1,2,3,4  数组下标从 0 开始,相当新增一个值
+    outPut(b_arr);                // 1,2,3,4
+
+    // 常见屏幕区间
+    var media = [{
+      title:"lg",
+      px:"1200+"
+    },
+    {
+      title:"md",
+      px:"992+"
+    },
+    {
+      title:"sm",
+      px:"768+"
+    },
+    {
+      title:"lg",
+      px:"768-"
+    },];
+    var html = [];
+    for(var i = 0;i < media.length;i++){
+      html.push('<p><h3>'+media[i].title+'</h3><br><span>'+media[i].px+'px</span></p>')
+    }
+    tab.innerHTML = html.join('');
+    console.log(media);
+
+    // 数组求和 
+    var arr = [1,2,3,4,5,6];
+    var sum = arr.reduce(function(a,b){
+      return a+b;
+    })
+    console.log(sum);
+
+    // 随机取数并排序
+    function random(a,b){
+      return Math.floor(Math.random() * (b - a) + 1) + a;
+    }
+
+    var arr = [];
+    for(var i = 0;i < 10;i++){
+      arr.push(random(10,90))
+    }
+    console.log(arr);
+
+    // 同一元素绑定两个点击事件
+    box.addEventListener('click', function () {
+        console.log(1); // 输出
+    }, false);
+    box.addEventListener('click', function () {
+      console.log(2); // 输出
+    }, false);
+
+    // 截取url
+    var adr = "https://www.baidu.com/s?ie=utf-8&mod=11&isbd=1&isid=7E49C8EA7A431458&ie=utf-8&f=8&rsv_bp=1&ch=12&tn=56060048_6_pg&wd=%E4%BD%A0&oq=%25E4%25BD%25A0%25E5%25A5%25BD&rsv_pq=a8e2a43b00002e91&rsv_t=9d46cd%2FDlHvxWMfa4GCmqi3wemDX2uHFglRxV61in4ZwImdMqvLY%2BhV2i6AYmkf3OeYUyw&rqlang=cn&rsv_enter=1&rsv_sug3=2&rsv_sug1=2&rsv_sug7=100&bs=%E4%BD%A0%E5%A5%BD&rsv_sid=undefined&_ss=1&clist=&hsug=&csor=1&pstg=5&_cr1=29396";
+    function getUrl(url){
+      var arr = url.split("?")[1].split("&");
+      var obj = {};
+      for(var i = 0;i < arr.length;i++){
+        var key = arr[i].split("=")[0];
+        var val = arr[i].split("=")[1];
+        obj[key] = val;
+      }
+      return obj;
+    }
+    console.log(getUrl(adr));
+
+    // set
+    var a = [1,2,3,4,56,1,2,3];
+    // a = [...new Set(a)];
+    console.log(...a);
+
+    // 时间戳
+    var a,b; 
+    box.onmouseover = function(){
+      a = new Date().getTime();
+      console.log(a);
+    }
+    box.onmouseout = function(){
+      b = new Date().getTime();
+      console.log((b-a)/1000+'秒');
+      // console.log(Math.floor((b-a)/1000)+'秒');
+    }
+
+    // react合并数组原理
+    var arr = [1,2,3,4,5,5,6,4,7,8];
+    // var arr = [...new Set(arr)]
+    var str = [...arr,'new']
+    console.log(arr,str);
+
+  </script>
+
+</body>
+</html>
