@@ -111,7 +111,6 @@
       comments = comments ? JSON.parse(comments) : [];
       // 将参数添加到comments中
       comments.unshift(val);
-<<<<<<< HEAD
 
       // 限制存储条数
       if(comments.length > 10){
@@ -122,21 +121,13 @@
       // 再将comment转换为JSON字符串存到localStorage覆盖原本comments
       localStorage.setItem("comments",JSON.stringify(comments));
 
-=======
-      // 再将comment转换为JSON字符串存到localStorage覆盖原本comments
-      localStorage.setItem("comments",JSON.stringify(comments));
->>>>>>> 21d14665d75806c640674ba2a1b2aa5eb28347ef
     }
 
     // 读localStorage
     function render(){
-<<<<<<< HEAD
       // 获取localStorage里键为comments的值
       var comments = localStorage.getItem("comments");
       // 把它转为数组
-=======
-      var comments = localStorage.getItem("comments");
->>>>>>> 21d14665d75806c640674ba2a1b2aa5eb28347ef
       comments = comments ? JSON.parse(comments) : [];
       var html = "";
 
