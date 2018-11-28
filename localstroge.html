@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+  
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  input{
+    padding: 4px;
+  }
+  button{
+    padding: 4px 6px;
+  }
+  .wrapper{
+    margin: 20px;
+  }
+  .iptWrapper{
+    margin-bottom: 20px;
+  }
+  #box{
+    height: 300px; 
+    overflow: auto;
+    width: 300px;
+    border:1px solid #dedede;
+    padding: 10px;
+    float: left;
+    margin-right: 20px;
+  }
+  #list{
+    width: 200px;
+    height: 200px;
+    border:1px solid #dedede;
+    overflow: auto;
+    padding: 4px 12px;
+    float: left;
+  }
+  .storage{
+    display: block;
+    padding: 2px 6px;
+    margin: 4px;
+    float: left;
+    border-radius: 4px;
+    border:1px solid #e0244d;
+    cursor: pointer;
+  }
+  #clearStorage{
+    cursor: pointer;
+  }
+
+</style>
+</head>
+<body>
+  
+  <div class="wrapper">
+
+    <div class="iptWrapper">
+      <input type="text" placeholder="输入信息" id="ipt">
+      <button id="clearStorage">clearStorage</button>
+    </div>
+    <h5 id="box"></h5>
+    <h6 id="list"></h6>
+
+  </div>
+
+
+  <script>
+
+    var storage = window.localStorage;
+
+    ipt.onkeyup=function(e){
+      // 按钮兼容性处理
+      var e = e || window.event;
+      var keyCode = e.keyCode || e.which;
+      // info接收输入框传入的值
+      var info = this.value;
+      if((keyCode === 13 || keyCode === 108) && info !== ''){
+        // 把info输入的值打印到页面上
+        box.innerHTML += '<p>' + info + '</p>';
+
+        // 存localStorage
+        var comments = {
+          val:info,
+        }
+        saveComment(comments);
+
+        // 数据增加,重新渲染
+        render();
+
+        // 清空输入框里的输入信息
+        ipt.value = '';
+
+        // 窗口高度判断
+        getDistance();
+      }
+    }
+
+    // 存localStorage
+    function saveComment(val){
+      // comments 就是{val:info,}
+      // 先将localStorage中的值读取,如果没有则是空数组
+      var comments = localStorage.getItem("comments");
+      comments = comments ? JSON.parse(comments) : [];
+      // 将参数添加到comments中
+      comments.unshift(val);
+
+      // 限制存储条数
+      if(comments.length > 10){
+        comments.pop();
+      }
+      console.log(comments.length);
+
+      // 再将comment转换为JSON字符串存到localStorage覆盖原本comments
+      localStorage.setItem("comments",JSON.stringify(comments));
+
+    }
+
+    // 读localStorage
+    function render(){
+      // 获取localStorage里键为comments的值
+      var comments = localStorage.getItem("comments");
+      // 把它转为数组
+      comments = comments ? JSON.parse(comments) : [];
+      var html = "";
+
+      // 当数组为空时
+      if(comments.length){
+        for(var i = 0;i < comments.length;i++){
+        var comment = comments[i];
+          html += '<span class="storage" index='+i+'>'+comment.val+'</span>';
+        }
+      }else{
+        html += "暂无历史记录";
+      }
+      list.innerHTML = html;
+    }
+
+    render();
+
+    // 清空localStorge
+    clearStorage.onclick = function(){
+      // 清空所有localStorage
+      storage.clear();
+      // 重新渲染视图
+      render();
+      // 输入框清空
+      ipt.value = '';
+      box.innerHTML = '';
+    }
+
+    // console.log(JSON.parse(storage.getItem('comments')));
+
+    // 输入框滚轮判定
+    function getDistance(){
+      // 获取box盒子的高度
+      var scrollHeight = box.scrollHeight;
+      // 获取box距离上方的高度
+      var height = box.offsetHeight;
+      box.scrollTop = scrollHeight - height;
+    }
+
+    // 删除单条历史记录
+    list.onclick = function(e){
+      if(e.target.className == 'storage'){
+        console.log(123)
+        // 获取localStoreage值
+        var comments = localStorage.getItem("comments");
+        // 取单条记录索引
+        var lng = parseInt(e.target.getAttribute('index'));
+        // 存到数组中
+        var arr = JSON.parse(comments);
+        // 在数组里删除对应下标的历史记录
+        arr.splice(lng,1);
+        console.log(arr,lng);
+        // 转成json字符串
+        comments=JSON.stringify(arr);
+        console.log(comments);
+        // 重新存入localStorage中
+        storage.setItem("comments",comments);
+        // 渲染视图
+        render();
+      }
+    }
+
+  </script>
+
+</body>
+</html>
