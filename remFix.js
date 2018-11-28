@@ -10,8 +10,8 @@
 
     // 获取浏览器窗口宽度
     var w = window.innerWidth;
-    if(w > 700){
-      w = 700;
+    if(w > 750){
+      w = 750;
     }
     // 屏幕适配换算
     document.documentElement.style.fontSize = w/750*100 + 'px';
