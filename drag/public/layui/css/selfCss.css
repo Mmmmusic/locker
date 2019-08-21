@@ -1,0 +1,201 @@
+.layui-body{
+  overflow-y: scroll;
+}
+#self-body-bg{
+  background: #eeeeee;
+}
+.self-navDesc{
+  color: #999;
+}
+.self-shadow{
+  position: fixed;
+  top: 0;
+  bottom:0;
+  left: 0;
+  right: 0;
+  background: rgba(0,0,0,.25);
+  z-index: 99999999;
+  display: none;
+}
+.self-tip{
+  position: absolute;
+  border-radius: 4px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 2;
+  background: rgba(0,0,0,.6);
+  padding: 10px;
+  color: #fff;
+  display: none;
+}
+.self-action-bar{
+  height: 50px;
+  position: relative;
+  background: #fff;
+}
+.self-action-con{
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.self-action-addNew{
+  width: 80px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  color: #fff;
+  background: #01AAED;
+  border: 1px solid #01AAED;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+.self-editor-bg{
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 600px;
+  background: #eee;
+  color:#666;
+  padding: 10px;
+}
+.self-editor{
+  background: #fff;
+}
+/* 可编辑-头部 */
+.self-editor-title{
+  padding: 10px;
+  margin-bottom: 20px;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+}
+/* 可编辑-表单 */
+.self-editor-con{
+  padding: 10px;
+}
+.self-editor-item{
+  margin-bottom: 10px;
+  width:60%;
+}
+.self-editor-desc{
+  position: relative;
+}
+.self-desc-con1{
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+  left: 100%;
+  width: 100px;
+}
+.self-editor-add{
+  display: flex;
+  align-items: center;
+}
+.self-desc-con2{
+  /* position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+  width: 200px;
+  display: flex; */
+  display: flex;
+  flex-wrap: wrap;
+  width: 25px;
+  height: 38px;
+}
+.self-desc-con2 span{
+  color: #999;
+  height: 19px;
+  width: 16px;
+  text-align: center;
+  line-height: 16px;
+  background: #fff;
+  border: 1px solid #f4f4f4;
+  border-left: none;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+.self-desc-con2 .self-act-add{
+  border-bottom: none;
+}
+.self-desc-con3{
+  position: absolute;
+  top:50%;
+  transform: translateY(-50%);
+  width: 200px;
+  display: flex;
+}
+.self-desc-item{
+  position: relative;
+  width: 200px;;
+  height: 20px;
+}
+#forver,#allow,#forbidden{
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+}
+.self-lab{
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  background: #fff;
+}
+.self-lab::after {
+  position: absolute;
+  content: "";
+  width: 5px;
+  height: 10px;
+  top: 3px;
+  left: 6px;
+  border: 2px solid #fff;
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg)
+}
+.self-lab-forbidden{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid #eee;
+  background: #fff;
+}
+.self-lab-span{
+  position: absolute;
+  width: 100px;
+  left: 30px;
+}
+.self-requried{
+  color: red;
+  margin-right: 5px;
+}
+.layui-laydate{
+  z-index: 99999999!important;
+}
+/* 可编辑-底部 */
+.self-editor-bottom{
+  background: #fff;
+  display: flex;
+  padding: 10px;
+  text-align: center;
+  justify-content: center;
+}
+.self-editor-cancel,.self-editor-save{
+  width: 70px;;
+  height: 25px;
+  line-height: 25px;
+  padding: 5px;
+  color:#fff;
+  background: #01AAED;
+  margin: 20px;
+  border-radius: 5px;
+}
